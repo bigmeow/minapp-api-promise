@@ -11,6 +11,10 @@
     "promise",
     "minapp"
   ],
-  "author": "running@vip.163.com",
-  "license": "MIT"
+  "author": "bigMeow <running@vip.163.com> (https://github.com/bigmeow/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bigmeow/minapp-api-promise/tree/master"
+  }
 }
