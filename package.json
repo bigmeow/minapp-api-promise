@@ -1,0 +1,16 @@
+{
+  "name": "minapp-api-promise",
+  "version": "0.9.0",
+  "description": "微信小程序所有API promise化，支持await;支持请求列队",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "微信小程序",
+    "promise",
+    "minapp"
+  ],
+  "author": "running@vip.163.com",
+  "license": "MIT"
+}
