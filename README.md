@@ -152,7 +152,7 @@ export default{
         break
       case 401:
         console.log('未登陆,拦截重定向登陆界面')
-        await wepy.redirectTo({
+        await this.redirectTo({
           url: 'login'
         })
         break
@@ -201,4 +201,8 @@ import requestIntercept from '相对目录/requestIntercept'
 // 注册请求拦截器
 wxp.intercept('request', requestIntercept)
 ```
+
+### 注意
+- 某些古老设备不支持Promise对象，需要自行引入promise-polyfill库进行兼容;
+- 使用async/await语法糖，需要webpack配合babel插件将之转换成es5语法
 
