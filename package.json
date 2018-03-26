@@ -1,6 +1,6 @@
 {
   "name": "minapp-api-promise",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "微信小程序所有API promise化，支持await;支持请求列队",
   "main": "dist/wxp.min.js",
   "scripts": {
