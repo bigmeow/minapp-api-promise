@@ -3,16 +3,31 @@
 
 
 ## 如何使用
-通过npm下载安装代码
+***如果你为你的小程序代码配置了工作流环境（比如<code>webpack</code>），可以通过npm下载安装代码***
 ```bash
 $ npm install minapp-api-promise --save
 ```
-
-如果你为你的小程序代码配置了工作流环境（比如webpack）
+引入代码
 ```js
 import WXP from 'minapp-api-promise'
 ```
-小程序原生用法:
+
+***如果你没有使用任何脚手架，用官方提供的微信开发者工具开发，请拷贝项目<code>dist</code>目录下的<code>wxp.js</code>文件到你的项目目录***
+引入代码
+```js
+import WXP from '项目相对路径/wxp'
+```
+或者
+```js
+var WXP = require('项目相对路径/wxp').default
+```
+具体你可以参照 [demo1](https://github.com/bigmeow/minapp-api-promise/demo/demo1),并且注意没有脚手架这种情况下你不能使用<code>async/await</code>,只能使用<code>then/catch</code>
+
+
+<hr/>
+
+
+***小程序原生用法:***
 ```js
 onLoad () {
   wx.request({
@@ -30,7 +45,7 @@ onLoad () {
 }
 ```
 
-使用了本库后的async/await写法:
+***使用了本库后的<code>async/await</code>写法:***
 ```js
 async onLoad () {
   try {
@@ -46,7 +61,7 @@ async onLoad () {
 }
 ```
 
-你也可以使用promise的then/catch写法:
+***你也可以使用<code>promise</code>的<code>then/catch</code>写法:***
 ```js
 onLoad () {
   WXP.request({
