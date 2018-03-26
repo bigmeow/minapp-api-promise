@@ -1,4 +1,4 @@
-# minapp-api-promise [![npm](https://img.shields.io/badge/npm-0.2.0-orange.svg)](https://www.npmjs.com/package/minapp-api-promise) [![Build Status](https://travis-ci.org/bigmeow/minapp-api-promise.svg?branch=master)](https://travis-ci.org/bigmeow/minapp-api-promise) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bigmeow/minapp-api-promise/blob/master/LICENSE)
+# minapp-api-promise [![npm](https://img.shields.io/badge/npm-1.0.0-orange.svg)](https://www.npmjs.com/package/minapp-api-promise) [![Build Status](https://travis-ci.org/bigmeow/minapp-api-promise.svg?branch=master)](https://travis-ci.org/bigmeow/minapp-api-promise) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bigmeow/minapp-api-promise/blob/master/LICENSE)
 微信小程序所有API promise化，支持await、支持请求列队.核心代码Fock自[wepy](https://github.com/Tencent/wepy)框架，我将之去依赖单独剥离
 
 
@@ -12,8 +12,7 @@ $ npm install minapp-api-promise --save
 ```js
 import WXP from 'minapp-api-promise'
 ```
-
-小程序原生用法:
+小程序原生用法:
 ```js
 onLoad () {
   wx.request({
@@ -34,7 +33,7 @@ onLoad () {
 使用了本库后的async/await写法:
 ```js
 async onLoad () {
-  try {
+ try {
     let resp = await WXP.request({
       url: 'http://baidu.com'
     })
