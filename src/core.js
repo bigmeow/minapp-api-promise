@@ -54,14 +54,16 @@ let RequestMQ = {
 };
 
 
-export default class {
+export default class CoreClass {
+    
 
-    $addons = {};
+    constructor () {
+        this.$addons = {};
 
-    $interceptors = {};
-
-    $pages = {};
-
+        this.$interceptors = {};
+    
+        this.$pages = {};
+    }
 
 
     $init (wepy, config = {}) {

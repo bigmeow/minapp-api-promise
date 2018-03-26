@@ -1,0 +1,12 @@
+{
+    "presets": [
+        ["env", 
+        {
+            "targets": {
+                "browsers": "last 2 versions, > 1%, Android >= 4, iOS >= 6, and_uc > 9",
+                "node": "8.0"
+            },
+            "modules": false
+        }]
+    ]
+}
