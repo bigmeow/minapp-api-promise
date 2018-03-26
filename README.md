@@ -33,7 +33,7 @@ onLoad () {
 使用了本库后的async/await写法:
 ```js
 async onLoad () {
- try {
+  try {
     let resp = await WXP.request({
       url: 'http://baidu.com'
     })
