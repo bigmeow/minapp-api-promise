@@ -203,6 +203,6 @@ wxp.intercept('request', requestIntercept)
 ```
 
 ### 注意
-- 某些古老设备不支持Promise对象，需要自行引入promise-polyfill库进行兼容;
-- 使用async/await语法糖，需要webpack配合babel插件将之转换成es5语法
+- 某些古老设备不支持Promise对象，需要自行引入promise-polyfill库进行兼容;
+- 使用async/await语法糖，需要webpack配合babel插件将之转换成es5语法
 
