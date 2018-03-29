@@ -132,7 +132,7 @@ export default{
   // 发出请求时的回调函数
   config (config) {
     // 请求前设置token
-    const globalData = this.$wxapp.globalData
+    const globalData = getApp().globalData
     if (globalData.auth && globalData.auth.token) {
       config.header = {
         Authorization: globalData.auth.token

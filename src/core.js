@@ -61,14 +61,11 @@ export default class CoreClass {
         this.$addons = {};
 
         this.$interceptors = {};
-    
-        this.$pages = {};
     }
 
 
     $init (wepy, config = {}) {
         this.$initAPI(wepy, config.noPromiseAPI);
-        this.$wxapp = getApp();
     }
 
 
