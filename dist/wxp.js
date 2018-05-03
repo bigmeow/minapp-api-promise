@@ -105,7 +105,7 @@ var RequestMQ = {
     map: {},
     mq: [],
     running: [],
-    MAX_REQUEST: 5,
+    MAX_REQUEST: 10,
     push: function push(param) {
         param.t = +new Date();
         while (this.mq.indexOf(param.t) > -1 || this.running.indexOf(param.t) > -1) {
@@ -155,8 +155,6 @@ var CoreClass = function () {
         this.$addons = {};
 
         this.$interceptors = {};
-
-        this.$pages = {};
     }
 
     _createClass(CoreClass, [{
@@ -165,7 +163,6 @@ var CoreClass = function () {
             var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
             this.$initAPI(wepy, config.noPromiseAPI);
-            this.$wxapp = getApp();
         }
     }, {
         key: 'use',
