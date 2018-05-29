@@ -1,5 +1,6 @@
 # minapp-api-promise
 [![npm](https://img.shields.io/badge/npm-1.0.2-orange.svg)](https://www.npmjs.com/package/minapp-api-promise) [![Build Status](https://travis-ci.org/bigmeow/minapp-api-promise.svg?branch=master)](https://travis-ci.org/bigmeow/minapp-api-promise) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bigmeow/minapp-api-promise/blob/master/LICENSE)
+[![JS Gzip Size](http://img.badgesize.io/https://unpkg.com/minapp-api-promise@1.0.2/dist/wxp.min.js?compression=gzip&style=flat-square&label=JS%20gzip%20size)](https://unpkg.com/minapp-api-promise@1.0.2/dist/wxp.min.js)
 
 微信小程序所有API promise化，支持await、支持请求列队.核心代码Fock自[wepy](https://github.com/Tencent/wepy)框架，我将之去依赖单独剥离
 
