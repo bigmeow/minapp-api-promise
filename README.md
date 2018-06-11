@@ -82,7 +82,25 @@ onLoad () {
 ### 进阶说明
 
 ### interceptor 拦截器
-可以使用全局拦截器对原生API的请求进行拦截,参考示例(拦截小程序发起的原生请求)：
+可以使用全局拦截器对原生API接口进行拦截<br/>
+⚠️注意：这里不仅仅局限于Http请求的拦截！<br/>
+比如某些页面需要登录才能看,我们可以拦截路由，在跳转前判断跳转的页面是否需要登录：
+```js
+WXP.intercept('navigateTo', {
+  config (config) {
+    console.log('路由跳转前需要处理的事情')
+    if (页面没有权限) {
+      // 返回false 后，就不会再执行跳转轻轻
+      return false;
+    }
+    return config;
+  }
+})
+// 这样调用就会进入拦截
+WXP.navigateTo(配置);
+```
+比如某些API请求需要在请求头带上token。
+参考示例(拦截小程序发起的原生请求)：
 ```js
 import WXP from 'minapp-api-promise'
 
