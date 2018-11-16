@@ -1,0 +1,11 @@
+{
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+      "javascript",
+      "html",
+      {
+        "language": "typescript",
+        "autoFix": true
+      }
+  ]
+}

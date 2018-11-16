@@ -1,2 +1,3 @@
-node_modules/
-.vscode/
+node_modules
+dist
+rename.js

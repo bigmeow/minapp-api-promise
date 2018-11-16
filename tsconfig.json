@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "module": "esnext",
+      "lib": [
+        "es2017",
+        "es2015",
+        "es2015.promise"
+      ],
+      "strict": true,
+      "allowJs": true,
+      "noImplicitAny": false,
+      "noUnusedLocals": true,
+      "noUnusedParameters": false,
+      "moduleResolution": "node",
+      "importHelpers": true,
+      "strictPropertyInitialization": false,
+      "baseUrl": ".",
+      "types": [
+        "node"
+      ],
+      "typeRoots": [
+        "typings"
+      ],
+      "allowSyntheticDefaultImports": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true
+    },
+    "include": [
+      "./src/**/*.ts",
+      "./types/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
