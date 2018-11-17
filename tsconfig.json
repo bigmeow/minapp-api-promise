@@ -19,16 +19,14 @@
       "types": [
         "node"
       ],
-      "typeRoots": [
-        "typings"
-      ],
       "allowSyntheticDefaultImports": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true
     },
     "include": [
       "./src/**/*.ts",
-      "./types/**/*.ts"
+      "./typings/**/*.ts",
+      "./index.d.ts"
     ],
     "exclude": [
       "node_modules"
