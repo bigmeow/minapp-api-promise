@@ -1,7 +1,7 @@
 {
   "name": "minapp-api-promise",
-  "version": "0.1.0",
-  "description": "Axios adapter for miniprogram",
+  "version": "1.0.2",
+  "description": ":hammer:微信小程序所有API promise化，支持await、支持请求列队、支持拦截小程序所有API",
   "main": "dist/index.js",
   "jsnext:main": "dist/index.esm.js",
   "module": "dist/index.esm.js",

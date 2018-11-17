@@ -3,6 +3,7 @@
 [![npm](https://img.shields.io/badge/npm-1.0.2-orange.svg)](https://www.npmjs.com/package/minapp-api-promise)
 [![NPM downloads](http://img.shields.io/npm/dm/minapp-api-promise.svg?style=flat-square)](http://www.npmtrends.com/minapp-api-promise)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/bigmeow/minapp-api-promise.svg)](http://isitmaintained.com/project/bigmeow/minapp-api-promise "Percentage of issues still open")
+[![JS Gzip Size](http://img.badgesize.io/https://unpkg.com/minapp-api-promise@1.0.2/dist/wxp.min.js?compression=gzip&style=flat-square&label=JS%20gzip%20size)](https://unpkg.com/minapp-api-promise@1.0.2/dist/wxp.min.js)
 
 :hammer: 微信小程序所有API promise化，支持await、支持请求列队、支持拦截小程序所有API
 
