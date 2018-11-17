@@ -59,3 +59,6 @@ async function getWxCode () {
 ## :airplane: 计划列表
 [TODO.md](https://github.com/bigmeow/minapp-api-promise/blob/master/TODO.md)
 
+## :two_men_holding_hands: THANKS
+感谢 [@颜海镜](https://github.com/yanhaijing) 提供的脚手架模板
+
