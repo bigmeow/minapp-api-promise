@@ -1,6 +1,8 @@
 /**
  * 管理请求队列
  */
+
+import { RequestConfig } from '../index'
 export default class RequestQueue {
     /** 最大请求迸发数，超出则放入队列 */
     protected _MAX_REQUEST = 10
@@ -30,7 +32,7 @@ export default class RequestQueue {
       // 默认以时间戳为taskId标志
       requestConfig.taskId = new Date().getTime().toString()
       // 确保新的taskId不会与现有的重复
-      while ((this.waitingTask.includes(requestConfig.taskId) || this.runningTask.includes(requestConfig.taskId))) {
+      while ((this.waitingTask.indexOf(requestConfig.taskId) > -1 || this.runningTask.indexOf(requestConfig.taskId) > -1)) {
         requestConfig.taskId += Math.random() * 10 >> 0
       }
       this.waitingTask.push(requestConfig.taskId)
@@ -71,9 +73,4 @@ export default class RequestQueue {
       this.push(requestConfig)
       return this.next()
     }
-}
-
-interface RequestConfig extends wx.RequestOption {
-    /** 调度任务时的唯一标识 */
-    taskId?: string
 }
