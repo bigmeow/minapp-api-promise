@@ -1,28 +1,64 @@
-class MpAPI {
+import noPromiseMethods from './noPromiseMethods'
+const native = {}
+class WrapperAPI {
     $interceptors: Map<string, ApiInterceptor> = new Map()
 
     /**
-     * 注册一个拦截器
+     * 创建实例的工厂函数
+     */
+    static createInstance () {
+      return new this()
+    }
+
+    /**
+     * 注册一个拦截器（重复注册同一API的拦截器，后者将覆盖前者）
      * @param apiName 要拦截的api名称
      * @param interceptor 拦截器
      */
     intercept (apiName: string, interceptor: ApiInterceptor) {
-      // TODO 校验拦截器名称是否存在
+      // 校验拦截器名称是否存在
+      if (!native[apiName]) {
+        throw new Error(`注册的'${apiName}'拦截器对应的API不存在！`)
+      }
       this.$interceptors.set(apiName, interceptor)
+      interceptor.apiName = apiName
+    }
+
+    $initAPI () {
+      // 遍历wx身上的所有API
+      Object.keys(wx).forEach(apiName => {
+        // 排除  名单中指定不支持promise的api名字、'on'开头的事件、以及Sync微信本身支持的同步API
+        if (!noPromiseMethods[apiName] && apiName.substr(0, 2) !== 'on' && !(/\w+Sync$/.test(apiName))) {
+          Object.defineProperty(native, apiName, {
+            get () {
+              // promise化、拦截器注入
+            }
+          })
+        } else {
+          // 被排除的不支持promise化的API 直接拷贝到新的native包装对象上
+          Object.defineProperty(native, apiName, {
+            get () { return (...args) => wx[apiName].apply(wx, args) }
+          })
+        }
+        // 拷贝到实例身上
+        this[apiName] = native[apiName]
+      })
     }
 }
 
-console.log(new MpAPI())
+const wxp = WrapperAPI.createInstance()
+wxp.$initAPI()
+export default wxp
 
 /**
  * API 拦截器
  */
-interface ApiInterceptor {
-    /** 拦截器拦截的api名称 */
-    readonly apiName: string
+export interface ApiInterceptor {
+    /** 拦截器拦截的api名称,自动注入 */
+    apiName?: string
 
     /** 准备调用API时的回调函数,如果返回false,则终止此次API调用;如果返回对象,则覆盖原来的api 配置 */
-    config?(apiConfig: NativeApiConfigObject): WrapperApiConfigObject | false
+    config?(apiConfig: WrapperApiConfigObject): WrapperApiConfigObject | false
 
     /** 在接口调用成功后,回调'success'函数前拦截 */
     success?(res: any): void;
@@ -34,8 +70,8 @@ interface ApiInterceptor {
     complete?(res: any): void;
 }
 
-/** 小程序原生API 配置对象 */
-interface NativeApiConfigObject {
+/** 经过包装扩展的小程序原生API配置对象 */
+interface WrapperApiConfigObject {
     [key: string]: any;
 
     /** 接口调用成功的回调函数 */
@@ -46,9 +82,4 @@ interface NativeApiConfigObject {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     complete?: (res: wx.GeneralCallbackResult) => void;
-}
-
-/** 经过包装扩展的配置对象 */
-interface WrapperApiConfigObject extends NativeApiConfigObject {
-
 }
