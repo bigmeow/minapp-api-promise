@@ -1,4 +1,6 @@
+import { RequestConfig } from '../index'
 import noPromiseMethods from './noPromiseMethods'
+import requestQueue from './requestQueue'
 const native = {}
 class WrapperAPI {
     $interceptors: Map<string, ApiInterceptor> = new Map()
@@ -25,13 +27,70 @@ class WrapperAPI {
     }
 
     $initAPI () {
+      const _this = this
       // 遍历wx身上的所有API
       Object.keys(wx).forEach(apiName => {
-        // 排除  名单中指定不支持promise的api名字、'on'开头的事件、以及Sync微信本身支持的同步API
-        if (!noPromiseMethods[apiName] && apiName.substr(0, 2) !== 'on' && !(/\w+Sync$/.test(apiName))) {
+        // 排除  名单中指定不支持promise的api名字、'on'开头的api、'off'开头的api、以及Sync微信本身支持的同步API
+        if (!noPromiseMethods[apiName] &&  !(/^(on|off)/.test(apiName)) && !(/\w+Sync$/.test(apiName))) {
           Object.defineProperty(native, apiName, {
             get () {
               // promise化、拦截器注入
+              return (apiConfig: WrapperApiConfigObject = {}) => {
+                const interceptItem = _this.$interceptors.get(apiName)
+                // config拦截
+                if (interceptItem && typeof interceptItem.config === 'function') {
+                  const returnApiConfig = interceptItem.config.call(_this, apiConfig)
+                  if (returnApiConfig === false) {
+                    return Promise.reject(new Error('aborted by interceptor'))
+                  }
+                  apiConfig = returnApiConfig
+                }
+                // request 特殊处理，兼容 wx.request(url) 的写法
+                if (apiName === 'request' && typeof apiConfig === 'string') {
+                  apiConfig = { url: apiConfig }
+                }
+                // 其它情况下api配置传字符串，直接掉小程序原本的api并返回，这里不做额外处理
+                if (typeof apiConfig === 'string') {
+                  return wx[apiName](apiConfig)
+                }
+
+                // wx.request、wx.uploadFile、wx.downloadFile api的句柄
+                let task
+                const promise: WrapperAPIPromise = new Promise((resolve, reject) => {
+                  ['fail', 'success', 'complete'].forEach(callbackName => {
+                    apiConfig[callbackName] = res => {
+                      // 注入'fail', 'success', 'complete' 拦截器
+                      if (interceptItem && interceptItem[callbackName]) {
+                        res = interceptItem[callbackName].call(_this, res)
+                      }
+                      if (callbackName === 'success') {
+                        resolve(res)
+                      } else if (callbackName === 'fail') {
+                        reject(res)
+                      }
+                    }
+                  })
+                  // request 特殊处理下请求队列
+                  if (apiName === 'request') {
+                    task = requestQueue.request(apiConfig as RequestConfig)
+                  } else {
+                    task = wx[apiName](apiConfig)
+                  }
+                })
+
+                if (apiName === 'uploadFile' || apiName === 'downloadFile') {
+                  promise.progress = (cb) => {
+                    task && task.onProgressUpdate(cb)
+                    return promise
+                  }
+                  promise.abort = (cb) => {
+                    cb && cb()
+                    task && task.abort()
+                    return promise
+                  }
+                }
+                return promise
+              }
             }
           })
         } else {
@@ -82,4 +141,9 @@ interface WrapperApiConfigObject {
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     complete?: (res: wx.GeneralCallbackResult) => void;
+}
+
+interface WrapperAPIPromise extends Promise<WrapperAPIPromise> {
+  progress?(cb: () => void): Promise<WrapperAPIPromise>
+  abort?(cb?: () => void): Promise<WrapperAPIPromise>
 }

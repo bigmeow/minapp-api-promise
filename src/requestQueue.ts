@@ -3,7 +3,7 @@
  */
 
 import { RequestConfig } from '../index'
-export default class RequestQueue {
+class RequestQueue {
     /** 最大请求迸发数，超出则放入队列 */
     protected _MAX_REQUEST = 10
 
@@ -74,3 +74,5 @@ export default class RequestQueue {
       return this.next()
     }
 }
+
+export default new RequestQueue()
