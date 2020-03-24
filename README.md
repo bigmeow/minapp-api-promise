@@ -5,6 +5,9 @@
 微信小程序所有API promise化，支持await、支持请求列队.核心代码Fock自[wepy](https://github.com/Tencent/wepy)框架，我将之去依赖单独剥离
 
 
+微信官方小程序基础库2.10.2版本起，所有异步api均支持返回promise,大家可以抛弃框架了
+
+
 ## 如何使用
 ***如果你为你的小程序代码配置了工作流环境（比如<code>webpack</code>），可以通过npm下载安装代码***
 ```bash
