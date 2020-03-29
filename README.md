@@ -5,7 +5,12 @@
 微信小程序所有API promise化，支持await、支持请求列队.核心代码Fock自[wepy](https://github.com/Tencent/wepy)框架，我将之去依赖单独剥离
 
 
-微信官方小程序基础库2.10.2版本起，所有异步api均支持返回promise,大家可以抛弃框架了
+## 不维护声明
+- 微信官方小程序自基础库 v1.4.0 (2017.07.10) 版本起，request 超过并发限制做队列处理;
+- 微信官方小程序自基础库 v2.10.2 (2020-02-20) 版本起，所有异步api均支持返回promise;
+- 基于上面两点，此库已经失去了存在价值
+
+***如果只是想发请求时使用拦截器的，可以转向使用 [axios-miniprogram-adapter库](https://github.com/bigmeow/axios-miniprogram-adapter) ，在小程序中使用 axios***
 
 
 ## 如何使用
